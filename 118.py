@@ -1,3 +1,6 @@
+'''
+118. Pascal's Triangle
+'''
 class Solution(object):
     def generate(self, numRows):
         """
