@@ -31,6 +31,8 @@ class DeQueue:
 q=DeQueue(5)
 q.enqueue(1)
 q.enqueueR(3)
+q.enqueue(10)
+print q._array,q.tail,q.head
 q.dequeueR()
 q.dequeue()
 q.dequeue()
