@@ -2,8 +2,9 @@ class Tree:
     def __init__(self):
         self.root=None
 class NewNode:
-    def __init__(self):
+    def __init__(self,key):
         self.p=self.left=self.sib=None
+        self.key=key
 class BTree:
     def __init__(self):
         self.root=None    
@@ -65,9 +66,35 @@ def buildRootedTree():
     [30,None,10],
     [5,None,None]
     ]
+    tree=Tree()
     nodeDic={}
-    
+    for item in data:
+        node=None
+        if item[0] in nodeDic:
+            node=nodeDic[item[0]]
+        else:
+            node=NewNode(item[0])
+        if node.key==18:
+            tree.root=node
+        if item[1] != None:
+            if data[item[1]][0] in nodeDic:
+                node.left=nodeDic[data[item[1]][0]]
+            else:
+                node.left=nodeDic[data[item[1]][0]]=NewNode(data[item[1]][0])
+            node.left.p=node
+        else:
+            node.left=None
+        if item[2] !=None:
+            if data[item[2]][0] in nodeDic:
+                node.sib=nodeDic[data[item[2]][0]]
+            else:
+                node.sib=nodeDic[data[item[2]][0]]=NewNode(data[item[2]][0])
+            node.sib.p=node.p
+        else:
+            node.sib=None
+    return tree
+
     
 if __name__=='__main__':
-    tree = buildTree()
-    rootedTree=buildRootedTree()
+    #tree = buildTree()
+    print buildRootedTree()
