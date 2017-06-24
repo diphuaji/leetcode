@@ -10,10 +10,8 @@ class LinkedList:
         e =Element(k)
         if self.head is not None:
             e.next=self.head.next
-            self.head.next=e
-        else:
-            self.head=e
-        if self.tail is not None:
+        self.head=e
+        if self.tail is None:
             self.tail=self.head
         
     def search(self,k):
@@ -38,8 +36,11 @@ class LinkedList:
 if __name__=='__main__':
     l=LinkedList()
     l.insert(5)
+    print l.head.key
     l.insert(8)
+    print l.head.key
     l.insert(120)
+    print l.head.key
     l.insert(21)
     print l.search(2)
     print l.search(21)
