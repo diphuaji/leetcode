@@ -12,7 +12,7 @@ class LinkedList:
         self.head=e
         if self.tail is None:
             self.tail=self.head
-        
+        self.tail.next=self.head        
     def search(self,k):
         e=self.head
         while e is not None:            
@@ -25,12 +25,17 @@ class LinkedList:
         e=self.head
         while e is not None:
             if e.key==k:
+                changeTail=False
                 if prev is not None:
                     prev.next=e.next
                 else:
+                    changeTail=True
                     self.head=e.next
                 if e.next is None:
+                    changeTail=True
                     self.tail=prev
+                if self.tail is not None:
+                    self.tail.next=self.head
                 return
             prev=e
             e=e.next
