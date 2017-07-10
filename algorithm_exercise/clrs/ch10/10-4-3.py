@@ -5,27 +5,30 @@ def printTree(node):
     while True:
         if len(s)>0:
             lastAct=s.pop()
+        if lastAct is  None or lastAct >0:
+            print node.key        
         if node.left==None and node.right==None:
             s.append(lastAct*-1)
             node=node.p
-            continue
-        if lastAct is  None or lastAct >0:
-            print node.key
+            continue        
         if lastAct is not None and lastAct<0:
-            if lastAct==-1:
+            if lastAct==-1:                
                 if node.right==None:
                     node=node.p
                     if len(s)==0:
                         break
                     s.append(s.pop()*-1)
                     continue
-                s.append(2)
+                s.append(2)                
                 node=node.right
                 continue
-            node=node.p
+            node=node.p            
             if len(s)==0:
                 break
+            s.append(s.pop()*-1)
             continue
+        if lastAct is not None:
+            s.append(lastAct)        
         if node.left!=None:
             node=node.left
             s.append(1)
