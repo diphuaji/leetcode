@@ -1,0 +1,21 @@
+# A: heap
+# we have to capsulate keys and vals into objects
+# also HEAP-related functions have to deal with these objects accordingly
+
+####FIFO queue####
+# use a min-heap
+# with each obj enqueued, 1 is added to its key
+ENQUEUE(obj):
+    HEAP-INSERT(A,obj)
+# with each obj popped, the corredsponding obj gets extracted
+DEQUEUE():
+    HEAP-EXTRACT(A)
+
+#####stack####
+# use a max-heap
+# with each obj pushed in, 1 is added to its key
+PUSH(obj):
+    HEAP-INSERT(A,obj)
+# with each obj popped, the corredsponding obj gets extracted
+POP():
+    HEAP-EXTRACT(A)
