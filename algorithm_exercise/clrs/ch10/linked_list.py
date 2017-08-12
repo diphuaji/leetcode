@@ -8,12 +8,9 @@ class LinkedList:
         self.tail=None
     def insert(self,k):
         e =Element(k)
-        if self.head is not None:
-            e.next=self.head.next
-            self.head.next=e
-        else:
-            self.head=e
-        if self.tail is not None:
+        e.next=self.head
+        self.head=e
+        if self.tail is None:
             self.tail=self.head
         
     def search(self,k):
@@ -31,22 +28,29 @@ class LinkedList:
                 if prev is not None:
                     prev.next=e.next
                 else:
-                    self.head=e
+                    self.head=e.next
+                if e.next is None:
+                    self.tail=prev
                 return
             prev=e
             e=e.next
 if __name__=='__main__':
     l=LinkedList()
+    print 'insert 5'
     l.insert(5)
+    print l.head.key
+    print 'insert 8'
     l.insert(8)
+    print l.head.key
+    print 'insert 120'
     l.insert(120)
+    print l.head.key
+    print 'insert 21'
     l.insert(21)
-    print l.search(2)
-    print l.search(21)
-    l.delete(8)
-    print l.search(8)
-    print l.search(5)
-    e=l.head
-    while e is not None:
-        print "e: "+str(e.key)
-        e=e.next
+    print 'del 21'
+    l.delete(21)
+    print l.head.key
+    print 'del 120'
+    l.delete(120)
+    print l.head.key
+
