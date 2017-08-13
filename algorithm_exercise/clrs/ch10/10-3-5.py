@@ -1,96 +1,148 @@
-allocNum=0
-free = 0 
-prev = []
-nex = []
-val = []
-head = None
+import string
+lHead=lPrev=lNex=lKey=fHead=fPrev=fNex=fKey=lSize=None
 def init(n):
-    global free,prev,nex,val,allocNum,head
-    prev= [ None for x in xrange(n)]
-    nex=[ None for x in xrange(n)]
-    val=[ None for x in xrange(n)]
-    head=None
-    free =0
+    global lHead,lPrev,lNex,lKey,fHead,fPrev,fNex,fKey,lSize
+    lSize=0    
+    lPrev= [ None for x in xrange(n)]
+    lNex=[ None for x in xrange(n)]
+    lKey=[ None for x in xrange(n)]
+    lHead=None
+    fPrev= [ None for x in xrange(n)]
+    fNex=[ None for x in xrange(n)]
+    fKey=[ None for x in xrange(n)]    
+    fHead=0
     for i in xrange(n):
-        nex[i]=prev[i]=val[i]=None
         if i !=n-1:
-            nex[i]=i+1
+            fNex[i]=i+1
+        if i !=0:
+            fPrev[i]=i-1
+        fKey[i]=None
+    return []
+
+def printLink(isL=True):
+    global lHead,lPrev,lNex,lKey,fHead,fPrev,fNex,fKey    
+    if isL:
+        head,prev,nex,key=lHead,lPrev,lNex,lKey
+    else:
+        head,prev,nex,key=fHead,fPrev,fNex,fKey
+    index=head
+    items=[]
+    while index!=None:
+        if isL:
+            items.append('(%s:%s)' % (str(index),str(lKey[index])))
+        else:
+            items.append( str(index))
+        index=nex[index]
+    print '(isL:%s): %s' % (isL,string.join(items,'->'))
+
+def insert(key):
+    global lKey
+    index=alloc()
+    lKey[index]=key
+
+def search(key):
+    global lHead,lPrev,lNex,lKey
+    index=lHead
+    while index!=None and lKey[index]!=key:
+        index=lNex[index]
+    return index
+    
+def delete(key):
+    index=search(key)
+    if index!=None:
+        free_obj(index)
+    
 def alloc():
-    global head,free,prev,nex,val,allocNum
-    if free==None:
-        raise Exception('out of space')
-    temp=free
-    free =nex[free]    
-    nex[temp]=head
-    prev[temp]=None
-    if head!=None:
-        prev[head]=temp
-    head=temp 
-    allocNum+=1
+    global lHead,lPrev,lNex,lKey,fHead,fPrev,fNex,fKey,lSize
+    if fHead==None:
+        raise Exception('out of space')    
+    '''process L'''
+    if lHead!=None:
+        lPrev[lHead]=fHead
+    lNex[fHead]=lHead
+    lHead=fHead    
+    '''process F'''
+    temp=fHead
+    fHead=fNex[fHead]
+    fPrev[fHead]=None
+    lSize+=1
     return temp
+
 def free_obj(pos):
-    global free,prev,nex,val,allocNum,head
-    if allocNum!=0 and pos<=allocNum-1:
-        if prev[pos]!=None:
-            nex[prev[pos]]=nex[pos]
-        if nex[pos]!=None:
-            prev[nex[pos]]=prev[pos]
-        '''
-        usually if pos=head, we set head=next[pos]
-        '''
-        if pos==head:
-            head=nex[pos]
-        if pos!=allocNum-1:            
-            if prev[allocNum-1]!=None:
-                nex[prev[allocNum-1]]=pos
-            if nex[allocNum-1]!=None:
-                prev[nex[allocNum-1]]=pos            
-            val[pos]=val[allocNum-1]
-            nex[pos]= nex[allocNum-1]
-            prev[pos]=prev[allocNum-1]
-        '''
-        but if the new head is moved to pos(which means next[pos]=allocNum-1), we have to to further set head=pos
-        '''
-        if head==allocNum-1:
-            head=pos
-        lastFree=free
-        free = allocNum-1
-        nex[free]=lastFree
-        allocNum-=1
-init(5)
-print "--aloc--"
-alloc()
-print "--aloc--"
-alloc()
-print "--aloc--"
-alloc()
-print "free:%s" % free
-print "prev:%s" % str(prev)
-print "next:%s" % str(nex)
-print "head:%s" % head
-print "--free-- 1"
-free_obj(1)
-print "free:%s" % free
-print "prev:%s" % str(prev)
-print "next:%s" % str(nex)
-print "head:%s" % head
-alloc()
-print "--aloc--"
-print "free:%s" % free
-print "prev:%s" % str(prev)
-print "next:%s" % str(nex)
-print "head:%s" % head
-
-print "--free-- 0"
-free_obj(0)
-print "free:%s" % free
-print "prev:%s" % str(prev)
-print "next:%s" % str(nex)
-print "head:%s" % head
-free_obj(0)
-print "--free-- 0"
-print "free:%s" % free
-print "prev:%s" % str(prev)
-print "next:%s" % str(nex)
-print "head:%s" % head
-
+    global lHead,lPrev,lNex,lKey,fHead,fPrev,fNex,fKey,lSize
+    '''process F'''
+    if fHead!=None:
+        fPrev[fHead]=pos
+    fNex[pos]=fHead
+    fHead=pos    
+    '''process L'''
+    if pos==lHead:
+        lHead=lNex[lHead]    
+    if lPrev[pos]!=None:
+        lNex[lPrev[pos]]=lNex[pos]
+    if lNex[pos]!=None:
+        lPrev[lNex[pos]]=lPrev[pos]
+    lSize-=1
+    
+def compactify():
+    global lHead,lPrev,lNex,lKey,fHead,fPrev,fNex,fKey,lSize
+    lIndex=lHead
+    fIndex=fHead
+    while lIndex!=None:
+        if lIndex<lSize-1:
+            lIndex=lNex[lIndex]
+            continue
+        while fIndex!=None and fIndex<lSize-1:
+            fIndex=fNex[fIndex]
+        if lIndex==None:
+            raise Exception('F overflow!')
+        '''process L'''
+        lKey[fIndex]=lKey[lIndex]
+        if lIndex==lHead:
+            lHead=fIndex
+        if lPrev[lIndex]!=None:
+            lNex[lPrev[lIndex]]=fIndex
+        if lNex[lIndex]!=None:
+            lPrev[lNex[lIndex]]=fIndex
+        '''process F'''
+        if fIndex==fHead:
+            fHead=lIndex
+        if fPrev[fIndex]!=None:
+            fNex[fPrev[fIndex]]=lIndex
+        if fNex[fIndex]!=None:
+            fPrev[fNex[fIndex]]=lIndex        
+        fIndex=fNex[fIndex]
+        lIndex=lNex[lIndex]
+        
+            
+if __name__=='__main__':    
+    init(5)
+    print '--alloc--'
+    insert('h')
+    printLink(True)
+    printLink(False)
+    print 'lSize: %s, FullSize: %s' % (str(lSize),str(5))
+    
+    print '--alloc--'
+    insert('d')
+    printLink(True)
+    printLink(False)
+    print 'lSize: %s, FullSize: %s' % (str(lSize),str(5))
+    
+    print '--alloc--'
+    insert('p')
+    printLink(True)
+    printLink(False)
+    print 'lSize: %s, FullSize: %s' % (str(lSize),str(5))
+    
+    print '--free-- 0'
+    delete('d')
+    printLink(True)
+    printLink(False)
+    print 'lSize: %s, FullSize: %s' % (str(lSize),str(5))
+    
+    print '--compactify--'
+    compactify()
+    printLink(True)
+    printLink(False)
+    print 'lSize: %s, FullSize: %s' % (str(lSize),str(5))
