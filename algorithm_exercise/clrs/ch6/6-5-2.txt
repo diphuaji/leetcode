@@ -1,0 +1,33 @@
+HEAP-MINIMUM():
+	if A.heap-size<1:
+		throw Exception('empty heap!')
+	return A[1]
+
+HEAP-EXTRACT-MIN():
+	if A.heap-size<1:
+		throw Exception('heap underflow')
+	temp=A[A.heap-size]
+	A[A.heap-size]=A[1]
+	A.heap-size-=1
+	A[1]=temp
+	A.MIN-HEAPIFY(A,1)
+	return temp
+
+HEAP-DECREASE-KEY(A,i,key):
+	if i>A.heap-size:
+		throw Exception('index out of boundary')
+	if key>A[i]:
+		throw Exception('new key is greater than current key')
+	while i>1 and A[PARENT(i)]>A[i]:
+		temp=A[i]
+		A[i]=A[PARENT(i)]
+		A[PARENT(i)]=temp
+		i=PARENT(i)
+		
+MIN-HEAP-INSERT(A,key):
+	if A.heap-size==A.length:
+		throw Exception('heap overflow')
+	A.heap-size+=1
+	A[A.heap-size]=POSITIVE-INF
+	HEAP-DECREASE-KEY(A,A.heap-size,POSITIVE-INF)
+	
