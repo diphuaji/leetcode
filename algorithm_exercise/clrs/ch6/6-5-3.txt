@@ -18,6 +18,7 @@ HEAP-DECREASE-KEY(A,i,key):
 		throw Exception('index out of boundary')
 	if key>A[i]:
 		throw Exception('new key is greater than current key')
+	A[i]=key
 	while i>1 and A[PARENT(i)]>A[i]:
 		temp=A[i]
 		A[i]=A[PARENT(i)]

@@ -1,0 +1,9 @@
+HEAP-DECREASE-KEY(A,i,key):
+	if i>A.heap-size:
+		throw Exception('index out of boundary')
+	if key>A[i]:
+		throw Exception('new key is greater than current key')
+	while i>1 and A[PARENT(i)]>key:
+		A[i]=A[PARENT(i)]
+		i=PARENT(i)
+	A[i]=key
