@@ -36,6 +36,8 @@ class MaxHeap():
                 
     def insert(self,key):
         self.heap_size+=1
+		if self.heap_size>len(self._array):
+			self._array.append(None)
         self._array[self.heap_size-1]=0xffffffff
         self.increase_key(self.heap_size-1)
     def extract(self):

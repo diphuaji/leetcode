@@ -10,5 +10,6 @@ MAX-HEAPIFY(A,i):
 			largest=l			
 		if r<A.heap-size and A[r]>A[largest]:
 			largest=r
+		swap A[largest] with A[startPos]
 		startPos=largest
 			
