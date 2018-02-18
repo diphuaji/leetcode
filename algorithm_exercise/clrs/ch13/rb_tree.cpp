@@ -56,7 +56,7 @@ void RBTree::prettyPrint(){
 void RBTree::prettyPrint(string prefix,bool isTail, RBNode * node){
     if(node==this->nil) return;
     string suffix="";
-    this->prettyPrint(prefix+(isTail :"│   " ? "    "),false,node->r);
+    this->prettyPrint(prefix+(isTail ?"│   " : "    "),false,node->r);
     cout<<prefix<<(isTail ? "└── ":"┌── ")<<node->key<<","<<node->c<<suffix<<endl;
     this->prettyPrint(prefix+(isTail ?"    ":"│   "),true,node->l);
     //if(node==this->nil){
@@ -382,6 +382,15 @@ int main(){
     tree.insert(21);
     tree.insert(21);
     tree.insert(21);
+    tree.insert(33);
+    tree.insert(21);
+    tree.insert(21);
+    tree.insert(21);
+    tree.insert(21);
+    tree.insert(21);
+    tree.insert(21);
+    tree.insert(21);
+    tree.insert(21);
     tree.insert(21);
     tree.insert(21);
     tree.insert(21);
@@ -394,38 +403,6 @@ int main(){
     tree.prettyPrint();
     tree.del(tree.search(21));
     tree.prettyPrint();
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(21);
-//    tree.insert(9);
-//    tree.insert(9);
-//    tree.insert(14);
-//    tree.prettyPrint();
     return 0;
 }
 
