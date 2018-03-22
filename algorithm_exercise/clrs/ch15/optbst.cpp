@@ -33,8 +33,10 @@ void  buildTree(int k[],float p[],float q[],int d,void * e1,void * w1,void * roo
 
 int main(){
     int k[] = {1,5,6,7,9};
-    float p[] ={0.15,0.10,0.05,0.10,0.20};
-    float q[] ={0.05,0.10,0.05,0.05,0.05,0.10};
+    //float p[] ={0.15,0.10,0.05,0.10,0.20};
+    //float q[] ={0.05,0.10,0.05,0.05,0.05,0.10};
+    float p[] ={0.23, 0.27, 0.16,0.14,0.20};
+    float q[] ={.0,.0,.0,.0,.0,.0};
     int d=sizeof(p)/sizeof(float);
     float e[d+1][d+1];
     float w[d+1][d+1];

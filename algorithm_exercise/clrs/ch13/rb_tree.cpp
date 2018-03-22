@@ -286,7 +286,7 @@ void RBTree::del(RBNode * node){
 
 void RBTree::delFix(RBNode * x){
     cout<<"delFixing: "<<x->key<<endl;
-    while(x->c==black){ 
+    while(x!=this->root && x->c==black){ 
         if(x==x->p->l){
             RBNode * sib=x->p->r;
             //case 1
