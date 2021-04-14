@@ -32,4 +32,8 @@ A less optimal solution is to sum manually
 ## 53 Maximum Subarray
 ### best solution - `53.py`
 ### kinda like the first one - `53_2.py`
-### divide and conquer
+### divide and conquer todo
+
+## 26 Remove Duplicates from Sorted Array
+### better solution - `26_1.py`
+todo
