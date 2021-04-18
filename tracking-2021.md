@@ -37,3 +37,11 @@ A less optimal solution is to sum manually
 ## 26 Remove Duplicates from Sorted Array
 ### better solution - `26_1.py`
 todo
+
+
+# string
+## 409 Longest Palindrome
+### `409.py`
+
+## 20 Valid Parentheses
+### `20.py` 
