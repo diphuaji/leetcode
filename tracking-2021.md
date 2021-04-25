@@ -36,7 +36,14 @@ A less optimal solution is to sum manually
 
 ## 26 Remove Duplicates from Sorted Array
 ### better solution - `26_1.py`
-todo
+Starting from pos 1, let `swap_pos=1`, Check if current number is different from the previous one, if it does then
+- swap the number at current pos with the one at `swap_pos`,
+- set the previous value to current one
+- advance `swap_pos` by 1;
+if it doesn't then we don't do the swapping.
+
+12`2`2`3`334 -> 12`3`2`2`334  
+123`2`233`4`-> 123`4`233`2`
 
 
 # string
