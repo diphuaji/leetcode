@@ -45,6 +45,10 @@ if it doesn't then we don't do the swapping.
 12`2`2`3`334 -> 12`3`2`2`334  
 123`2`233`4`-> 123`4`233`2`
 
+## 628 Maximum Product of Three Numbers
+### shitty solution - `628.py`
+### better solution - `628_1.py`
+todo
 
 # string
 ## 409 Longest Palindrome
